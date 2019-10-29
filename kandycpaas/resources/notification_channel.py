@@ -78,9 +78,9 @@ class NotificationChannel:
     # build custom_response.
     response = response.json()
     custom_response = {
-      'channed_id': response['notificationChannel']['callbackURL'],
-      'webhook_url': response['notificationChannel']['channedData']['x-webhookURL'],
-      'channed_type': response['notificationChannel']['channelType']
+      'channel_id': response['notificationChannel']['callbackURL'],
+      'webhook_url': response['notificationChannel']['channelData']['x-webhookURL'],
+      'channel_type': response['notificationChannel']['channelType']
     }  
     return custom_response
     

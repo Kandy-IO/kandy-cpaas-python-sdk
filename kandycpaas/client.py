@@ -31,5 +31,4 @@ class Client:
     api = Api(config)
 
     for namespace, Klass in resources.list.items():
-      print(namespace, Klass)
       setattr(self, namespace, Klass(api))

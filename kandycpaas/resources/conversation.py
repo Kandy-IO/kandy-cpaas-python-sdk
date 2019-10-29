@@ -1,6 +1,7 @@
 from kandycpaas.utils import (
   compose_response,
   parse_response,
+  build_error_response,
   id_from,
   is_test_response,
   response_converter,
@@ -47,7 +48,6 @@ class Conversation:
           }
         }
       }
-
       url = '{}/outbound/{}/requests'.format(self.base_url, params.get('sender_address'))
 
       response = self.api.send_request(url, options, 'post')
@@ -65,7 +65,7 @@ class Conversation:
         'message': response['outboundSMSMessageRequest']['outboundSMSTextMessage']['message'],
         'sender_address': response['outboundSMSMessageRequest']['senderAddress'],
         'delivery_info': response['outboundSMSMessageRequest']['deliveryInfoList']['deliveryInfo']
-      }  
+      }
       return custom_response
 
   def get_messages(self, params):
@@ -321,7 +321,7 @@ class Conversation:
       response = response.json()
       custom_response =  {
         'webhook_url': params.get('webhook_url'),
-        'destination_address': response['subcription']['destinationAddress'],
+        'destination_address': response['subscription']['destinationAddress'],
         'subscription_id': id_from(response['subscription']['resourceURL'])
       }
       return custom_response

@@ -1,6 +1,7 @@
 from kandycpaas.utils import (
   compose_response,
   parse_response,
+  build_error_response,
   id_from,
   is_test_response,
   response_converter,
@@ -89,12 +90,12 @@ class Twofactor:
     url = '{}/codes/{}/verify'.format(self.base_url, params.get('code_id'))
     # check if try block has to be added.
     response = self.api.send_request(url, options, 'put')
-
     if (is_test_response(response)):
       return response.json()
-    # check if error_response.
-    elif (check_if_error_response(response)):
-      return build_error_response(response)
+    
+    # check if error_response. commented out because of no response thrown back when verification failed.
+    # elif (check_if_error_response(response)):
+    #   return build_error_response(response)
 
     # build custom_response.
     if (response.status_code == 204):

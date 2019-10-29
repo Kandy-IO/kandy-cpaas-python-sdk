@@ -30,7 +30,7 @@ class Notification:
 
     """
     parsed_notification = response_converter(notification)
-    top_level_notification_key = list(notification.keys())[0]
+    top_level_notification_key = list(parsed_notification.keys())[0]
     if (top_level_notification_key=='sms_subscription_cancellation_notification'):
       return {
         'subscription_id': id_from(parsed_notification[top_level_notification_key]['link'][0]['href']),
@@ -41,7 +41,7 @@ class Notification:
     elif (top_level_notification_key == 'outbound_sms_message_notification') or (top_level_notification_key == 'inbound_sms_message_notification'):
       outbound_sms_messages = parsed_notification[top_level_notification_key]
       inbound_sms_messages = parsed_notification[top_level_notification_key]
-      notification_id = parsed_notification[top_level_notification_key['id']]
+      notification_id = parsed_notification[top_level_notification_key]['id']
       notification_date_time = parsed_notification[top_level_notification_key]['date_time']
       return {
         **outbound_sms_messages,

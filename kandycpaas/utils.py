@@ -1,5 +1,6 @@
-import inflection
+import humps
 import json
+import re
 
 def remove_empty_from_dict(d):
   if type(d) is dict:
@@ -19,7 +20,7 @@ def response_converter(res):
   """
   convert response object from camelCase to snake_case
   """
-  return json.loads(inflection.underscore(json.dumps(res)))
+  return humps.decamelize(res)
 
 def check_if_error_response(res):
   """
@@ -91,6 +92,8 @@ def is_test_response(res):
   """
   check if the response is test_response or not
   """
-  res = res.json()
-  return True if '__for_test__' in res else False
-
+  try:
+    res = res.json()
+    return True if '__for_test__' in res else False
+  except Exception as error:
+    return False
