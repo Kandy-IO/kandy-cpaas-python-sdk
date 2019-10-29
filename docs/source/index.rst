@@ -3,8 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to cpaas-python-sdk's documentation!
-============================================
+
+createClient
+============
+
+.. automodule:: kandycpaas.client
+   :members:
 
 .. toctree::
    :maxdepth: 2
@@ -14,10 +18,3 @@ Welcome to cpaas-python-sdk's documentation!
    modules/conversation.rst
    modules/notification.rst
    modules/twofactor.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
