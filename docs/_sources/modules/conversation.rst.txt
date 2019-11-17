@@ -1,6 +1,5 @@
-
 Conversation
 ============
 
-.. automodule:: kandycpaas.resources.conversation
+.. automodule:: cpaassdk.resources.conversation
    :members:

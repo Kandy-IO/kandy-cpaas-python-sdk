@@ -1,5 +1,5 @@
 Twofactor 
 =========
 
-.. automodule:: kandycpaas.resources.twofactor
+.. automodule:: cpaassdk.resources.twofactor
    :members:

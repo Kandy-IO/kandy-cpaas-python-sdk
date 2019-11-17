@@ -1,6 +1,5 @@
-
 Notification
 ============
 
-.. automodule:: kandycpaas.resources.notification
+.. automodule:: cpaassdk.resources.notification
    :members:

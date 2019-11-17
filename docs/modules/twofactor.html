@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Twofactor &#8212; cpaas-python-sdk 1.0.0 documentation</title>
+    <title>Twofactor &#8212; cpaassdk 1.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -31,15 +31,15 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-kandycpaas.resources.twofactor">
-<span id="twofactor"></span><h1>Twofactor<a class="headerlink" href="#module-kandycpaas.resources.twofactor" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-cpaassdk.resources.twofactor">
+<span id="twofactor"></span><h1>Twofactor<a class="headerlink" href="#module-cpaassdk.resources.twofactor" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="kandycpaas.resources.twofactor.Twofactor">
-<em class="property">class </em><code class="sig-prename descclassname">kandycpaas.resources.twofactor.</code><code class="sig-name descname">Twofactor</code><span class="sig-paren">(</span><em class="sig-param">api</em><span class="sig-paren">)</span><a class="headerlink" href="#kandycpaas.resources.twofactor.Twofactor" title="Permalink to this definition">¶</a></dt>
+<dt id="cpaassdk.resources.twofactor.Twofactor">
+<em class="property">class </em><code class="sig-prename descclassname">cpaassdk.resources.twofactor.</code><code class="sig-name descname">Twofactor</code><span class="sig-paren">(</span><em class="sig-param">api</em><span class="sig-paren">)</span><a class="headerlink" href="#cpaassdk.resources.twofactor.Twofactor" title="Permalink to this definition">¶</a></dt>
 <dd><p>CPaaS provides Authentication API where a two-factor authentication (2FA) flow can be implemented by using that. Sections below describe two sample use cases, two-factor authentication via SMS and two-factor authentication via e-mail</p>
 <dl class="method">
-<dt id="kandycpaas.resources.twofactor.Twofactor.send_code">
-<code class="sig-name descname">send_code</code><span class="sig-paren">(</span><em class="sig-param">params</em><span class="sig-paren">)</span><a class="headerlink" href="#kandycpaas.resources.twofactor.Twofactor.send_code" title="Permalink to this definition">¶</a></dt>
+<dt id="cpaassdk.resources.twofactor.Twofactor.send_code">
+<code class="sig-name descname">send_code</code><span class="sig-paren">(</span><em class="sig-param">params</em><span class="sig-paren">)</span><a class="headerlink" href="#cpaassdk.resources.twofactor.Twofactor.send_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new authentication code</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -57,8 +57,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="kandycpaas.resources.twofactor.Twofactor.verify_code">
-<code class="sig-name descname">verify_code</code><span class="sig-paren">(</span><em class="sig-param">params</em><span class="sig-paren">)</span><a class="headerlink" href="#kandycpaas.resources.twofactor.Twofactor.verify_code" title="Permalink to this definition">¶</a></dt>
+<dt id="cpaassdk.resources.twofactor.Twofactor.verify_code">
+<code class="sig-name descname">verify_code</code><span class="sig-paren">(</span><em class="sig-param">params</em><span class="sig-paren">)</span><a class="headerlink" href="#cpaassdk.resources.twofactor.Twofactor.verify_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verifying authentication code.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -72,8 +72,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="kandycpaas.resources.twofactor.Twofactor.resend_code">
-<code class="sig-name descname">resend_code</code><span class="sig-paren">(</span><em class="sig-param">params</em><span class="sig-paren">)</span><a class="headerlink" href="#kandycpaas.resources.twofactor.Twofactor.resend_code" title="Permalink to this definition">¶</a></dt>
+<dt id="cpaassdk.resources.twofactor.Twofactor.resend_code">
+<code class="sig-name descname">resend_code</code><span class="sig-paren">(</span><em class="sig-param">params</em><span class="sig-paren">)</span><a class="headerlink" href="#cpaassdk.resources.twofactor.Twofactor.resend_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resending the authentication code via same code resource, invalidating the previously sent code.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -92,8 +92,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="kandycpaas.resources.twofactor.Twofactor.delete_code">
-<code class="sig-name descname">delete_code</code><span class="sig-paren">(</span><em class="sig-param">params</em><span class="sig-paren">)</span><a class="headerlink" href="#kandycpaas.resources.twofactor.Twofactor.delete_code" title="Permalink to this definition">¶</a></dt>
+<dt id="cpaassdk.resources.twofactor.Twofactor.delete_code">
+<code class="sig-name descname">delete_code</code><span class="sig-paren">(</span><em class="sig-param">params</em><span class="sig-paren">)</span><a class="headerlink" href="#cpaassdk.resources.twofactor.Twofactor.delete_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete authentication code resource.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -116,7 +116,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">cpaas-python-sdk</a></h1>
+<h1 class="logo"><a href="../index.html">cpaassdk</a></h1>
 
 
 
@@ -165,7 +165,7 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2019, kandy-cpaas.
+      &copy;2019, cpaassdk.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>

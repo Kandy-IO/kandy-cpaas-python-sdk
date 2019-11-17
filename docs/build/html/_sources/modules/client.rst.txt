@@ -1,6 +1,5 @@
-
 createClient
 ============
 
-.. automodule:: kandycpaas.client
+.. automodule:: cpaassdk.client
    :members:
