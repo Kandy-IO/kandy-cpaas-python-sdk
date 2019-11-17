@@ -3,6 +3,7 @@
 
 """The setup script."""
 
+import os
 from setuptools import setup, find_packages
 
 requirements = [ 'requests>=2.22', 'PyJWT>=1.7.1' ]
