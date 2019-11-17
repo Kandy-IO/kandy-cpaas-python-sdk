@@ -30,6 +30,7 @@ setup(
     include_package_data=True,
     keywords='cpaassdk',
     name='cpaassdk',
+    url='https://github.com/Kandy-IO/kandy-cpaas-python-sdk',
     packages=find_packages(include=['cpaassdk']),
     version=about['__version__'],
     zip_safe=False
