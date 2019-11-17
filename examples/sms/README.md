@@ -3,7 +3,7 @@
 This is a simple sms application where a user can send an sms, subscribe sms notification and receive real-time sms events (inbound, outbound etc notification).
 
 ## Installation
-1. Update the constants.py file with the apropriate credentials. Refer configuration section.
+1. Update the constants.py file with the appropriate credentials. Refer configuration section.
 2. To install dependencies, run:
 ```bash
 pipenv install
@@ -46,7 +46,7 @@ Once `ngrok` is installed, run the following command
 ```bash
 ngrok http 5000
 ```
-5000 is the default `PORT` where the flask app runs. so you need to run the ngrok command mentioning the exact port. 
+5000 is the default `PORT` where the flask app runs. so you need to run the ngrok command mentioning the exact port.
 Once `ngrok` starts forwarding the `localhost`, you would find a similar kind of message in your screen.
 
 ```bash

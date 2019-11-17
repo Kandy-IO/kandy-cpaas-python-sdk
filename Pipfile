@@ -15,7 +15,6 @@ sphinx-markdown-builder = "*"
 requests = "*"
 pyjwt = "*"
 inflection = "*"
-flask = "*"
 pyhumps = "*"
 
 [requires]

@@ -9,7 +9,7 @@ requirements = [ 'requests>=2.22', 'PyJWT>=1.7.1' ]
 
 current_dir = os.path.abspath(os.path.dirname(__file__))
 about = {}
-with open(os.path.join(current_dir, "kandycpaas", "__version__.py"), "r") as f:
+with open(os.path.join(current_dir, "cpaassdk", "__version__.py"), "r") as f:
     exec(f.read(), about)
 
 setup(
@@ -17,7 +17,6 @@ setup(
     author_email='kandy@keepworks.com',
     classifiers=[
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
@@ -25,13 +24,13 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Python SDK for Kandy CPaaS",
+    description="Python SDK to build robust real-time communication applications.",
     install_requires=requirements,
-    license="MIT license",
+    license="SEE LICENSE IN LICENSE.md",
     include_package_data=True,
-    keywords='kandycpaas',
-    name='kandycpaas',
-    packages=find_packages(include=['kandycpaas']),
+    keywords='cpaassdk',
+    name='cpaassdk',
+    packages=find_packages(include=['cpaassdk']),
     version=about['__version__'],
     zip_safe=False
 )

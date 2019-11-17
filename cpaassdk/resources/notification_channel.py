@@ -1,4 +1,4 @@
-from kandycpaas.utils import (
+from cpaassdk.utils import (
   compose_response,
   parse_response,
   id_from,

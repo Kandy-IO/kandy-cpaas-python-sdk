@@ -1,8 +1,8 @@
 import pytest
 import responses
 
-from kandycpaas.api import Api
-from kandycpaas.config import Config
+from cpaassdk.api import Api
+from cpaassdk.config import Config
 from tests.mocker import mock_token
 
 @pytest.fixture

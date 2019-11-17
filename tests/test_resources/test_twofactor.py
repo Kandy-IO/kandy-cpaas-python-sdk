@@ -1,6 +1,6 @@
 import responses
 
-from kandycpaas.resources.twofactor import Twofactor
+from cpaassdk.resources.twofactor import Twofactor
 from tests.util import decallmethods, deep_equal
 from tests.mocker import mock
 

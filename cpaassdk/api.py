@@ -3,7 +3,7 @@ import jwt
 import requests
 
 from datetime import datetime
-from kandycpaas.utils import remove_empty_from_dict
+from cpaassdk.utils import remove_empty_from_dict
 from .__version__ import __version__
 
 
@@ -96,9 +96,8 @@ class Api:
       self.user_id = self.id_token_parsed.get('preferred_username')
 
   def token_expired(self):
-    if self.access_token == None: return True
+    if not self.access_token: return True
 
-    min_buffer = 60 # in seconds
+    min_buffer = (self.access_token_parsed.get('exp') - self.access_token_parsed.get('iat'))/2
     expires_in = self.access_token_parsed.get('exp') - int(datetime.now().timestamp()) - min_buffer
-
     return expires_in < 0

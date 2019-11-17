@@ -5,7 +5,7 @@
 Install the package with:
 
 ```bash
-pip install kandycpaas
+pip install cpaassdk
 ```
 
 ## Reference

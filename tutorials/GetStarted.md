@@ -7,14 +7,14 @@ In this quickstart, we will help you dip your toes in before you dive in. This g
 The library can be installed using PIP (python's package manager).
 
 ```bash
-pip install kandycpaas
+pip install cpaassdk
 ```
 
 In your application, you simply need to import the library to be able to make use of it.
 
 ```python
 // Instantiate the SDK.
-from kandycpaas import Client
+from cpaassdk import Client
 
 // Initialize
 client = Client({
@@ -31,7 +31,7 @@ After you've created your client instance, you can begin playing around with it 
 Create a client instance by passing the a configuration object to the modules client object as shown below.
 
 ```python
-from kandycpass import Client
+from cpasssdk import Client
 
 // Initialize
 client = Client({
@@ -62,6 +62,8 @@ response = client.twofactor.send_code({
   'message': 'Your code is {code}'
 })
 ```
+
+<!-- need to add usage response and error response after testing. -->
 
 ## Default Error Response
 

@@ -17,7 +17,6 @@ def decallmethods(decorator, prefix='test_'):
 def deep_equal(obj1, obj2):
   obj1 = to_dict(obj1)
   obj2 = to_dict(obj2)
-
   if obj1 == obj2:
     return True
   else:

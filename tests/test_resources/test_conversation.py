@@ -1,6 +1,6 @@
 import responses
 
-from kandycpaas.resources.conversation import Conversation, NotificationChannel
+from cpaassdk.resources.conversation import Conversation, NotificationChannel
 from tests.util import decallmethods, deep_equal
 from tests.mocker import mock
 

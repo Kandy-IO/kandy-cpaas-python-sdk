@@ -1,4 +1,4 @@
-from kandycpaas.utils import (
+from cpaassdk.utils import (
   compose_response,
   parse_response,
   build_error_response,
@@ -6,7 +6,7 @@ from kandycpaas.utils import (
   is_test_response,
   response_converter,
   check_if_error_response)
-from kandycpaas.resources.notification_channel import NotificationChannel
+from cpaassdk.resources.notification_channel import NotificationChannel
 
 class Conversation:
   """
