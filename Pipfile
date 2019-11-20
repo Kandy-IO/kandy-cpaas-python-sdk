@@ -10,6 +10,7 @@ pytest = "*"
 responses = "*"
 freezegun = "*"
 sphinx-markdown-builder = "*"
+twine = "*"
 
 [packages]
 requests = "*"

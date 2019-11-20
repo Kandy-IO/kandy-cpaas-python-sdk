@@ -1,6 +1,6 @@
 # Get Started
 
-In this quickstart, we will help you dip your toes in before you dive in. This guide will help you get started with the $KANDY$ python SDK.
+In this quickstart, we will help you dip your toes in before you dive in. This guide will help you get started with the $KANDY$ Python SDK.
 
 ## Using the SDK
 
@@ -28,7 +28,7 @@ After you've created your client instance, you can begin playing around with it 
 
 ## Configuration
 
-Create a client instance by passing the a configuration object to the modules client object as shown below.
+Create a client instance by passing the configuration object to the modules client object as shown below.
 
 ```python
 from cpasssdk import Client

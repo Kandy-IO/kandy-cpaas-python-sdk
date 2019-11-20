@@ -3,10 +3,10 @@
 
 """The setup script."""
 
-import os
 from setuptools import setup, find_packages
+import os
 
-requirements = [ 'requests>=2.22', 'PyJWT>=1.7.1' ]
+requirements = [ 'requests>=2.22', 'PyJWT>=1.7.1', 'pyhumps' ]
 
 current_dir = os.path.abspath(os.path.dirname(__file__))
 about = {}
@@ -27,12 +27,12 @@ setup(
     ],
     description="Python SDK to build robust real-time communication applications.",
     install_requires=requirements,
-    license="SEE LICENSE IN LICENSE.md",
+    license="SEE LICENSE IN LICENSE FILE",
     include_package_data=True,
     keywords='cpaassdk',
     name='cpaassdk',
     url='https://github.com/Kandy-IO/kandy-cpaas-python-sdk',
-    packages=find_packages(include=['cpaassdk']),
+    packages=find_packages(include=['cpaassdk', 'cpaassdk.resources']),
     version=about['__version__'],
     zip_safe=False
 )

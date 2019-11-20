@@ -30,5 +30,5 @@ class Client:
   def setup(self, config):
     api = Api(config)
 
-    for namespace, Klass in resources.list.items():
+    for namespace, Klass in resources.mappings.items():
       setattr(self, namespace, Klass(api))
