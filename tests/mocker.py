@@ -26,7 +26,8 @@ def mock(url, verb, body = None):
 
 def mock_token():
   access_token_payload = {
-    'exp': int(datetime.now().timestamp()) + 6*60*60
+    'exp': int(datetime.now().timestamp()) + 6*60*60,
+    'iat': int(datetime.now().timestamp()) - 2*60*60
   }
 
   id_token_payload = {

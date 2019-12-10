@@ -78,6 +78,8 @@ An invalid/failed verification will have the following response:
 ## Two-Factor Authentication via E-mail
 A similar flow with the SMS section above can be implemented for e-mail verification.
 
+The following email code request example, requires an additional parameter `subject`. When value `email` is used in the `method` parameter then `subject` becomes a mandatory field to pass. The value passed becomes the subject line of the 2FA code email that is sent out to the destination_address:
+
 ```python
 response = client.twofactor.send_code({
   'destination_address': 'johndev@someemail.com',
@@ -85,7 +87,8 @@ response = client.twofactor.send_code({
   'length': 10,
   'type': 'alphanumeric',
   'expiry': 3600,
-  'message': 'Here is your code: {code}'
+  'message': 'Here is your code: {code}',
+  'subject': 'Verification code'
 })
 ```
 The response contains `code_id` which is a unique ID needed for `verify_code`. The response object can look something like this:

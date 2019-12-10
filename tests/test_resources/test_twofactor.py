@@ -17,11 +17,26 @@ class TestTwofactor:
     client = Twofactor(api)
     params = {
       'destination_address': [ '345', '567' ],
-      'method': 'sms',
+      'method': 'email',
       'length': 6,
       'type': 'numeric',
       'expiry': 120,
-      'message': 'Hi'
+      'message': 'test message {code}',
+      'subject': 'test'
+    }
+
+    expected_body = {
+      'code': {
+        'address': [ '345', '567' ],
+        'method': 'email',
+        'format': {
+          'length': 6,
+          'type': 'numeric'
+        },
+        'expiry': 120,
+        'subject': 'test',
+        'message': 'test message {code}'
+      }
     }
 
     url = '{}/codes'.format(self.base_url(api))
@@ -31,6 +46,7 @@ class TestTwofactor:
     response = client.send_code(params)
 
     assert response['__for_test__']['url'] == api.config.base_url + url
+    assert deep_equal(response['__for_test__']['body'], expected_body)
 
   def test_verify_code(self, api):
     client = Twofactor(api)
@@ -48,17 +64,34 @@ class TestTwofactor:
     client = Twofactor(api)
     params = {
       'destination_address': [ '345', '567' ],
-      'method': 'sms',
+      'method': 'email',
       'length': 6,
       'type': 'numeric',
       'expiry': 120,
-      'message': 'Hi'
+      'message': 'test message {code}',
+      'subject': 'test'
+    }
+
+    expected_body = {
+      'code': {
+        'address': [ '345', '567' ],
+        'method': 'email',
+        'format': {
+          'length': 6,
+          'type': 'numeric'
+        },
+        'expiry': 120,
+        'subject': 'test',
+        'message': 'test message {code}'
+      }
     }
 
     url = '{}/codes'.format(self.base_url(api))
     mock(url, 'POST')
     response = client.send_code(params)
+
     assert response['__for_test__']['url'] == api.config.base_url + url
+    assert deep_equal(response['__for_test__']['body'], expected_body)
 
   def test_delete_code(self, api):
     client = Twofactor(api)

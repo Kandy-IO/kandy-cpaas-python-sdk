@@ -27,13 +27,21 @@ client = Client({
 After you've created your client instance, you can begin playing around with it to learn its functionality and see how it fits in your application. The API reference documentation will help to explain the details of the available features.
 
 ## Configuration
+Before starting, you need to learn following information from your CPaaS account, specifically from Developer Portal.
+
+Log into your Developer Portal account and the configuration information required to be authenticated should be under:
+
++ `Projects` -> `{your project}` -> `Project info`/`Project secret`
+
+> + `Private Project key` should be mapped to `client_id`
+> + `Private Project secret` should be mapped to `client_secret`
 
 Create a client instance by passing the configuration object to the modules client object as shown below.
 
 ```python
 from cpasssdk import Client
 
-// Initialize
+# Initialize
 client = Client({
   'client_id': '<private project key>',
   'client_secret': '<private project secret>',
@@ -41,29 +49,17 @@ client = Client({
 })
 ```
 
-The information required to be authenticated should be under:
-
-+ `Projects` -> `{your project}` -> `Project info`/`Project secret`
-
-> + `Private Project key` should be mapped to `client_id`
-> + `Private Project secret` should be mapped to `client_secret`
-
 ## Usage
 
-All modules can be accessed via the client instance. All method invocations follow the namespaced signature
+All modules can be accessed via the client instance, refer to [References](/developer/references/python) for details about all modules and it's methods. All method invocations follow the namespaced signature
 
 `{client}.{module_name}.{method_name}(params)`
 
 Example:
 
 ```python
-response = client.twofactor.send_code({
-  'destination_address': '+17147233172',
-  'message': 'Your code is {code}'
-})
+client.conversation.create_message(params)
 ```
-
-<!-- need to add usage response and error response after testing. -->
 
 ## Default Error Response
 
