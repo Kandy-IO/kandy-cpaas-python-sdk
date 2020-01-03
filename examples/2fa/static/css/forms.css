@@ -1,6 +1,7 @@
 .input-group {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 input[type=text],
@@ -25,4 +26,10 @@ button {
   margin: 8px 0;
   padding: 14px 20px;
   width: 100%;
+}
+
+.verify-button {
+  display: block;
+  margin: 20px auto;
+  width: 50%;
 }

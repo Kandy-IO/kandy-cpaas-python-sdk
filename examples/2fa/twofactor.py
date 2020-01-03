@@ -3,7 +3,9 @@ import os
 from helper import send_twofactor_code, verify_code
 from constants import (
   TEST_EMAIL,
-  TEST_PASSWORD
+  TEST_PASSWORD,
+  DESTINATION_EMAIL,
+  DESTINATION_NUMBER
 )
 
 app = Flask(__name__)
@@ -22,8 +24,7 @@ def login():
       alert = 'Invalid Credentials. Please try again.'
       return render_template('login.html', alert=alert)
     else:
-      res = send_twofactor_code()
-      session['code_id'] = res['code_id']
+      session['cred_verified'] = True
       return redirect('/verify')
   return render_template('login.html')
 
@@ -31,6 +32,9 @@ def login():
 def verify():
   if session.get('logged_in'):
     return redirect('/dashboard')
+  if not session.get('cred_verified'):
+    return redirect('/login')
+    
   alert = None
   if request.method == 'POST':
     code_id = session.get('code_id')
@@ -42,6 +46,21 @@ def verify():
       alert = response['message']
       return render_template('verify.html', alert=alert)
   return render_template('verify.html')
+
+@app.route('/sendtwofactor', methods=['POST'])
+def sendtwofactor():
+  otp = request.form['otp']
+  if (otp == 'email') and not DESTINATION_EMAIL:
+    alert = 'please enter a destination email in your constants file.'
+    return render_template('verify.html', alert=alert)
+  if (otp == 'sms') and not DESTINATION_NUMBER:
+    alert = 'please enter a destination number in your constants file.'
+    return render_template('verify.html', alert=alert)
+  email = True if (otp == 'email') else False
+  res = send_twofactor_code(email)
+  session['code_id'] = res['code_id']
+  success_msg = 'Twofactor authentication code sent succesfully.'
+  return render_template('verify.html', success_msg=success_msg)  
 
 @app.route('/dashboard', methods=['GET'])
 def dashboard():
