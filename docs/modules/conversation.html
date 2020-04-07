@@ -46,9 +46,9 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible values - SMS. Check conversation.types for more options.</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible value(s) - sms. Check conversation.types for more options.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'sender_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Sender address information, basically the from address. E164 formatted DID number passed as a value, which is owned by the user. If the user wants to let CPaaS uses the default assigned DID number, this field can either has “default” value or the same value as the user_id.</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'destination_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">array[str]</span></code>) – </p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'destination_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">array[str]</span></code>) – Indicates which DID number(s) used as destination for this SMS.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'message'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – SMS text message</p></li>
 </ul>
 </dd>
@@ -63,7 +63,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible values - SMS. Check conversation.types for more options</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible value(s) - sms. Check conversation.types for more options</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'remote_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Remote address information while retrieving the SMS history, basically the destination telephone number that user exchanged SMS before. E164 formatted DID number passed as a value.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'local_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Local address information while retrieving the SMS history, basically the source telephone number that user exchanged SMS before.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'query'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>, optional) – To hold all query related parameters.</p></li>
@@ -89,7 +89,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>(</strong> (<em>params</em><em>[</em><em>'type'</em><em>]</em>) – obj: <cite>str</cite>): Type of conversation. Possible values - SMS. Check conversation.types for more options</p></li>
+<li><p><strong>(</strong> (<em>params</em><em>[</em><em>'type'</em><em>]</em>) – obj: <cite>str</cite>): Type of conversation. Possible value(s) - sms. Check conversation.types for more options</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'remote_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Remote address information while retrieving the SMS history, basically the destination telephone number that user exchanged SMS before. E164 formatted DID number passed as a value.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'local_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Local address information while retrieving the SMS history, basically the source telephone number that user exchanged SMS before.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'message_id'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Identification of the SMS message.</p></li>
@@ -106,7 +106,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible values - SMS. Check conversation.types for more options</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible value(s) - sms. Check conversation.types for more options</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'local_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Local address information while retrieving the SMS history, basically the source telephone number that user exchanged SMS before.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'remote_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Remote address information while retrieving the SMS history, basically the destination telephone number that user exchanged SMS before. E164 formatted DID number passed as a value.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'query'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>, optional) – To hold all query related parameters.</p></li>
@@ -127,7 +127,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible values - SMS. Check conversation.types for more options</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible value(s) - sms. Check conversation.types for more options</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'remote_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Remote address information while retrieving the SMS history, basically the destination telephone number that user exchanged SMS before. E164 formatted DID number passed as a value.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'local_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Local address information while retrieving the SMS history, basically the source telephone number that user exchanged SMS before.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'message_id'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Identification of the SMS message. If messageId is not passed then the SMS thread is deleted with all messages.</p></li>
@@ -144,7 +144,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible values - SMS. Check conversation.types for more options</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible value(s) - sms. Check conversation.types for more options</p></li>
 </ul>
 </dd>
 </dl>
@@ -158,7 +158,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible values - SMS. Check conversation.types for more options</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible value(s) - sms. Check conversation.types for more options</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'subscription_id'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Resource ID of the subscription</p></li>
 </ul>
 </dd>
@@ -173,8 +173,8 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible values - SMS. Check conversation.types for more options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'webhook_url'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – The webhook that has been acquired during SMS API subscription, which the incoming notifications supposed to be sent to.</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible value(s) - SMS. Check conversation.types for more options</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'webhook_url'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – HTTPS URL that is present in your application server which is accessible from the public web where the notifications should be sent to. Note: Should be a POST endpoint.</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'destination_address'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – The address that incoming messages are received for this subscription. If does not exist, CPaaS uses the default assigned DID number to subscribe against. It is suggested to provide the intended E164 formatted DID number within this parameter.</p></li>
 </ul>
 </dd>
@@ -189,7 +189,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible values - SMS. Check conversation.types for more options</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'type'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Type of conversation. Possible value(s) - sms. Check conversation.types for more options</p></li>
 <li><p><strong>params</strong><strong>[</strong><strong>'subscription_id'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Resource ID of the subscription</p></li>
 </ul>
 </dd>
@@ -260,7 +260,7 @@
       &copy;2019, cpaassdk.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

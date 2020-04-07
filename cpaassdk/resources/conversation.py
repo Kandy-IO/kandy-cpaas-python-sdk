@@ -28,9 +28,9 @@ class Conversation:
 
       Args:
         params (dict): Single parameter to hold all options
-        params['type'] (:obj:`str`): Type of conversation. Possible values - SMS. Check conversation.types for more options.
+        params['type'] (:obj:`str`): Type of conversation. Possible value(s) - sms. Check conversation.types for more options.
         params['sender_address'] (:obj:`str`): Sender address information, basically the from address. E164 formatted DID number passed as a value, which is owned by the user. If the user wants to let CPaaS uses the default assigned DID number, this field can either has "default" value or the same value as the user_id.
-        params['destination_address'] (:obj:`array[str]`):
+        params['destination_address'] (:obj:`array[str]`): Indicates which DID number(s) used as destination for this SMS.
         params['message'] (:obj:`str`): SMS text message
     """
     message_type = params.get('type')
@@ -74,7 +74,7 @@ class Conversation:
 
       Args:
         params (dict): Single parameter to hold all options
-        params['type'] (:obj:`str`): Type of conversation. Possible values - SMS. Check conversation.types for more options
+        params['type'] (:obj:`str`): Type of conversation. Possible value(s) - sms. Check conversation.types for more options
         params['remote_address'] (:obj:`str`): Remote address information while retrieving the SMS history, basically the destination telephone number that user exchanged SMS before. E164 formatted DID number passed as a value.
         params['local_address'] (:obj:`str`): Local address information while retrieving the SMS history, basically the source telephone number that user exchanged SMS before.
         params['query'] (:obj:`dict`, optional): To hold all query related parameters.
@@ -104,16 +104,16 @@ class Conversation:
         url = '{}/{}'.format(url, remote_address)
       if (local_address):
         url = '{}/localAddresses/{}'.format(url, local_address)
-      
+
       response = self.api.send_request(url, options)
-      
+
       # check if response is test response.
       if (is_test_response(response)):
         return response.json()
       # check if error_response.
       elif (check_if_error_response(response)):
-        return build_error_response(response)      
-      
+        return build_error_response(response)
+
       # if not custom response remove the top level key and return
       return parse_response(response)
 
@@ -123,7 +123,7 @@ class Conversation:
 
       Args:
         params (dict): Single parameter to hold all options
-        params['type'] (:obj: `str`): Type of conversation. Possible values - SMS. Check conversation.types for more options
+        params['type'] (:obj: `str`): Type of conversation. Possible value(s) - sms. Check conversation.types for more options
         params['remote_address'] (:obj:`str`): Remote address information while retrieving the SMS history, basically the destination telephone number that user exchanged SMS before. E164 formatted DID number passed as a value.
         params['local_address'] (:obj:`str`): Local address information while retrieving the SMS history, basically the source telephone number that user exchanged SMS before.
         params['message_id'] (:obj:`str`): Identification of the SMS message.
@@ -139,8 +139,8 @@ class Conversation:
         return response.json()
       # check if error_response.
       elif (check_if_error_response(response)):
-        return build_error_response(response)      
-      
+        return build_error_response(response)
+
       # if not custom response remove the top level key and return
       return parse_response(response)
 
@@ -150,7 +150,7 @@ class Conversation:
 
       Args:
         params (dict): Single parameter to hold all options
-        params['type'] (:obj:`str`): Type of conversation. Possible values - SMS. Check conversation.types for more options
+        params['type'] (:obj:`str`): Type of conversation. Possible value(s) - sms. Check conversation.types for more options
         params['local_address'] (:obj:`str`): Local address information while retrieving the SMS history, basically the source telephone number that user exchanged SMS before.
         params['remote_address'] (:obj:`str`): Remote address information while retrieving the SMS history, basically the destination telephone number that user exchanged SMS before. E164 formatted DID number passed as a value.
         params['query'] (:obj:`dict`, optional): To hold all query related parameters.
@@ -167,7 +167,7 @@ class Conversation:
         'query': params.get('query')
       }
       url = '{}/remoteAddresses/{}/localAddresses/{}/messages'.format(self.base_url, params.get('remote_address'), params.get('local_address'))
-      
+
       response = self.api.send_request(url, options)
 
       # check if response is test response.
@@ -175,8 +175,8 @@ class Conversation:
         return response.json()
       # check if error_response.
       elif (check_if_error_response(response)):
-        return build_error_response(response)      
-      
+        return build_error_response(response)
+
       # if not custom response remove the top level key and return
       return parse_response(response)
 
@@ -186,7 +186,7 @@ class Conversation:
 
       Args:
         params (dict): Single parameter to hold all options
-        params['type'] (:obj:`str`): Type of conversation. Possible values - SMS. Check conversation.types for more options
+        params['type'] (:obj:`str`): Type of conversation. Possible value(s) - sms. Check conversation.types for more options
         params['remote_address'] (:obj:`str`): Remote address information while retrieving the SMS history, basically the destination telephone number that user exchanged SMS before. E164 formatted DID number passed as a value.
         params['local_address'] (:obj:`str`): Local address information while retrieving the SMS history, basically the source telephone number that user exchanged SMS before.
         params['message_id'] (:obj:`str`, optional): Identification of the SMS message. If messageId is not passed then the SMS thread is deleted with all messages.
@@ -206,7 +206,7 @@ class Conversation:
         return response.json()
       # check if error_response.
       elif (check_if_error_response(response)):
-        return build_error_response(response) 
+        return build_error_response(response)
 
       # if not custom response remove the top level key and return
       return parse_response(response)
@@ -217,7 +217,7 @@ class Conversation:
 
       Args:
         params (dict): Single parameter to hold all options
-        params['type'] (:obj:`str`): Type of conversation. Possible values - SMS. Check conversation.types for more options
+        params['type'] (:obj:`str`): Type of conversation. Possible value(s) - sms. Check conversation.types for more options
 
     """
     url = ''
@@ -242,7 +242,7 @@ class Conversation:
           custom_response.append({
             'notify_url': subscription['callbackReference']['notifyURL'],
             'destination_address': subscription['destinationAddress'],
-            'subscription_id': id_from(subscription['resourceURL']) 
+            'subscription_id': id_from(subscription['resourceURL'])
           })
         return custom_response
 
@@ -252,16 +252,16 @@ class Conversation:
 
       Args:
         params (dict): Single parameter to hold all options
-        params['type'] (:obj:`str`): Type of conversation. Possible values - SMS. Check conversation.types for more options
+        params['type'] (:obj:`str`): Type of conversation. Possible value(s) - sms. Check conversation.types for more options
         params['subscription_id'] (:obj:`str`): Resource ID of the subscription
-  
+
     """
     url = ''
     message_type = params.get('type')
 
     if (message_type == self.types['SMS']):
       url = '{}/inbound/subscriptions/{}'.format(self.base_url, params.get('subscription_id'))
-      
+
       response = self.api.send_request(url, {})
 
       if (is_test_response(response)):
@@ -286,10 +286,10 @@ class Conversation:
 
       Args:
         params (dict): Single parameter to hold all options
-        params['type'] (:obj:`str`): Type of conversation. Possible values - SMS. Check conversation.types for more options
-        params['webhook_url'] (:obj:`str`): The webhook that has been acquired during SMS API subscription, which the incoming notifications supposed to be sent to.
+        params['type'] (:obj:`str`): Type of conversation. Possible value(s) - SMS. Check conversation.types for more options
+        params['webhook_url'] (:obj:`str`): HTTPS URL that is present in your application server which is accessible from the public web where the notifications should be sent to. Note: Should be a POST endpoint.
         params['destination_address'] (:obj:`str`, optional): The address that incoming messages are received for this subscription. If does not exist, CPaaS uses the default assigned DID number to subscribe against. It is suggested to provide the intended E164 formatted DID number within this parameter.
-   
+
     """
     message_type = params.get('type')
 
@@ -332,7 +332,7 @@ class Conversation:
 
       Args:
         params (dict): Single parameter to hold all options
-        params['type'] (:obj:`str`): Type of conversation. Possible values - SMS. Check conversation.types for more options
+        params['type'] (:obj:`str`): Type of conversation. Possible value(s) - sms. Check conversation.types for more options
         params['subscription_id'] (:obj:`str`): Resource ID of the subscription
 
     """

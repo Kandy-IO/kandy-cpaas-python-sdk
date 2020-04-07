@@ -13,15 +13,11 @@ pip install cpaassdk
 In your application, you simply need to import the library to be able to make use of it.
 
 ```python
-// Instantiate the SDK.
+# Instantiate the SDK.
 from cpaassdk import Client
 
-// Initialize
-client = Client({
-  'client_id': '<private project key>',
-  'client_secret': '<private project secret>'
-  'base_url': '$KANDYFQDN$'
-})
+# Initialize
+client = Client(config)
 ```
 
 After you've created your client instance, you can begin playing around with it to learn its functionality and see how it fits in your application. The API reference documentation will help to explain the details of the available features.
@@ -45,7 +41,7 @@ from cpasssdk import Client
 client = Client({
   'client_id': '<private project key>',
   'client_secret': '<private project secret>',
-  'base_url': '$KANDYFQDN$'
+  'base_url': 'https://$KANDYFQDN$'
 })
 ```
 
