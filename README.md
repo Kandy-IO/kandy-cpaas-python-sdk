@@ -1,6 +1,6 @@
-# @kandy-io/cpaas-python-sdk
+# Kandy CPaaS Python SDK
 
-## Installation
+## Install
 
 Install the package with:
 
@@ -12,6 +12,9 @@ pip install cpaassdk
 
 The information about tutorials and documents can be found in the links below
 
-* `Documents`: [docs](https://kandy-io.github.io/kandy-cpaas-python-sdk/docs)
+* `Documents`: [API Docs](https://kandy-io.github.io/kandy-cpaas-python-sdk/docs)
 
-* `Tutorials`:  [Get Started](https://Kandy-IO.github.io/kandy-cpaas-python-sdk/tutorials/?KANDY=Kandy&KANDYFQDN=oauth-cpaas.att.com#/GetStarted)
+* `Tutorials`:  [User Guide](https://Kandy-IO.github.io/kandy-cpaas-python-sdk/tutorials/?KANDY=Kandy&KANDYFQDN=oauth-cpaas.att.com#/GetStarted)
+
+## Compatibility
+- Python 3.0 or higher
