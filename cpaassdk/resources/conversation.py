@@ -223,7 +223,7 @@ class Conversation:
     url = ''
     message_type = params.get('type')
 
-    if (message_type == this.types['SMS']):
+    if (message_type == self.types['SMS']):
       url = '{}/inbound/subscriptions'.format(self.base_url)
 
       response = self.api.send_request(url, {})
@@ -238,7 +238,7 @@ class Conversation:
       response = response.json()
       custom_response = []
       if (("subscriptionList" in response) and ("subscription" in response["subscriptionList"])):
-        for subscription in response["subsctiptionList"]["subscription"]:
+        for subscription in response["subscriptionList"]["subscription"]:
           custom_response.append({
             'notify_url': subscription['callbackReference']['notifyURL'],
             'destination_address': subscription['destinationAddress'],
@@ -275,7 +275,7 @@ class Conversation:
       if ("subscription" in response):
         custom_response =  {
           'notify_url': response['subscription']['callbackReference']['notifyURL'],
-          'destination_address': response['subcription']['destinationAddress'],
+          'destination_address': response['subscription']['destinationAddress'],
           'subscription_id': id_from(response['subscription']['resourceURL'])
         }
         return custom_response

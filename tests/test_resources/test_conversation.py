@@ -9,7 +9,7 @@ class TestConversation:
   def base_url(self, api):
     return '/cpaas/smsmessaging/v1/{}'.format(api.user_id)
 
-  def noitifcation_channel_base_url(self, api):
+  def notification_channel_base_url(self, api):
     return '/cpaas/notificationchannel/v1/{}'.format(api.user_id)
 
   def client(self, api):
@@ -150,8 +150,8 @@ class TestConversation:
   def test_create_inbound_subscription(self, api):
     # create_notification_channel
     client = NotificationChannel(api)
-    url = '{}/channels'.format(self.noitifcation_channel_base_url(api))
-    
+    url = '{}/channels'.format(self.notification_channel_base_url(api))
+
     resp_body = {
       '__for_test__': {
         'channel_id': 'test-channel-id'
@@ -164,7 +164,7 @@ class TestConversation:
       'webhook_url': 'test-webhook-url'
     }
     response = client.create_channel(params)
-    
+
     client = Conversation(api)
     url = '{}/inbound/subscriptions'.format(self.base_url(api))
     params = {
@@ -188,8 +188,8 @@ class TestConversation:
   def test_create_inbound_subscription_with_all_params(self, api):
     # create_notification_channel
     client = NotificationChannel(api)
-    url = '{}/channels'.format(self.noitifcation_channel_base_url(api))
-    
+    url = '{}/channels'.format(self.notification_channel_base_url(api))
+
     resp_body = {
       '__for_test__': {
         'channel_id': 'test-channel-id'

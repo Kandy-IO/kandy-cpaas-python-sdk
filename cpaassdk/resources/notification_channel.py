@@ -1,6 +1,7 @@
 from cpaassdk.utils import (
   compose_response,
   parse_response,
+  build_error_response,
   id_from,
   is_test_response,
   response_converter,
@@ -19,7 +20,7 @@ class NotificationChannel:
 
   def channels(self, params):
     """
-    Retrive the list of activae notification channels.
+    Retrive the list of active notification channels.
 
     Args:
 
