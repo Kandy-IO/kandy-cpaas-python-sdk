@@ -1,11 +1,8 @@
 from cpaassdk.utils import (
-  compose_response,
-  parse_response,
-  build_error_response,
   id_from,
   is_test_response,
-  response_converter,
-  check_if_error_response)
+  process_response
+)
 
 class Twofactor:
   """
@@ -56,18 +53,12 @@ class Twofactor:
 
     response = self.api.send_request(url, options, 'post')
 
-    if (is_test_response(response)):
-      return response.json()
-      # check if error_response.
-    elif (check_if_error_response(response)):
-      return build_error_response(response)
+    def custom_response(res):
+      return {
+        'code_id': id_from(res['code']['resourceurl'])
+      }
 
-    # build custom_response.
-    response = response.json()
-    custom_response = {
-      'code_id': id_from(response['code']['resourceURL'])
-    }
-    return custom_response
+    return process_response(response, callback=custom_response)
 
   def verify_code(self, params):
     """
@@ -90,16 +81,12 @@ class Twofactor:
     }
 
     url = '{}/codes/{}/verify'.format(self.base_url, params.get('code_id'))
-    # check if try block has to be added.
+
     response = self.api.send_request(url, options, 'put')
-    if (is_test_response(response)):
+
+    if (is_test_response(response.json())):
       return response.json()
 
-    # check if error_response. commented out because of no response thrown back when verification failed.
-    # elif (check_if_error_response(response)):
-    #   return build_error_response(response)
-
-    # build custom_response.
     if (response.status_code == 204):
       custom_response = {
         'verified': True,
@@ -110,10 +97,10 @@ class Twofactor:
         'verified': False,
         'message': 'Code invalid or expired'
       }
+
     return custom_response
 
 
-  # TODO: Fix return example and check if why same two different functions with same functionality.
   def resend_code(self, params):
     """
       Resending the authentication code via same code resource, invalidating the previously sent code.
@@ -153,18 +140,12 @@ class Twofactor:
 
     response = self.api.send_request(url, options, 'put')
 
-    if (is_test_response(response)):
-      return response.json()
-    # check if error_response.
-    elif (check_if_error_response(response)):
-      return build_error_response(response)
+    def custom_response(res):
+      return {
+        'code_id': id_from(res['code']['resourceurl'])
+      }
 
-    # build custom_response.
-    response = response.json()
-    custom_response = {
-      'code_id': id_from(response['code']['resourceURL'])
-    }
-    return custom_response
+    return process_response(response, callback=custom_response)
 
   def delete_code(self, params):
     """
@@ -179,16 +160,10 @@ class Twofactor:
 
     response = self.api.send_request(url, {}, 'put')
 
-    if (is_test_response(response)):
-      return response.json()
-    # check if error_response.
-    elif (check_if_error_response(response)):
-      return build_error_response(response)
+    def custom_response(res):
+      return {
+        'code_id': params.get('code_id'),
+        'success': True
+      }
 
-    # build custom_response.
-    response = response.json()
-    custom_response = {
-      'code_id': params.get('code_id'),
-      'success': True
-    }
-    return custom_response
+    return process_response(response, callback=custom_response)

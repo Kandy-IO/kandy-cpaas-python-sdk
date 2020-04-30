@@ -1,11 +1,4 @@
-from cpaassdk.utils import (
-  compose_response,
-  parse_response,
-  build_error_response,
-  id_from,
-  is_test_response,
-  response_converter,
-  check_if_error_response)
+from cpaassdk.utils import process_response
 
 class NotificationChannel:
   def __init__(self, api):
@@ -46,11 +39,11 @@ class NotificationChannel:
   def create_channel(self, params):
     """
     Creates a new notification channel, webhook type.
-    
+
     Args:
       params (dict): Single parameter to hold all options
       params['webhook_url'] (:obj:`str`): Type of conversation. Possible values - SMS. Check conversation.types for more options
-      
+
     Returns:
       Returns a json.
     """
@@ -69,31 +62,13 @@ class NotificationChannel:
 
     response = self.api.send_request(url, options, 'post')
 
-    # check if response is test response.
-    if (is_test_response(response)):
-      return response.json()
-    # check if error_response.
-    elif (check_if_error_response(response)):
-      return build_error_response(response)
+    def custom_response(res):
+      obj = res['notification_channel']
 
-    # build custom_response.
-    response = response.json()
-    custom_response = {
-      'channel_id': response['notificationChannel']['callbackURL'],
-      'webhook_url': response['notificationChannel']['channelData']['x-webhookURL'],
-      'channel_type': response['notificationChannel']['channelType']
-    }  
-    return custom_response
-    
+      return {
+        'channel_id': obj['callbackurl'],
+        'webhook_url': obj['channel_data']['x-webhookurl'],
+        'channel_type': obj['channel_type']
+      }
 
-    
-    
-
-
-
-
-      
-
-  
-
-    
+    return process_response(response, callback=custom_response)

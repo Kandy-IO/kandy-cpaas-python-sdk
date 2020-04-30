@@ -1,10 +1,11 @@
+import humps
+
 from cpaassdk.utils import (
-  compose_response,
-  parse_response,
+  outer_dict_value,
   id_from,
   is_test_response,
-  response_converter,
-  check_if_error_response)
+  is_error_response
+)
 from cpaassdk.resources.notification_channel import NotificationChannel
 
 class Notification:
@@ -29,7 +30,7 @@ class Notification:
         notification (:obj:`JSON`): JSON received in the subscription webhook.
 
     """
-    parsed_notification = response_converter(notification)
+    parsed_notification = humps.decamelize(notification)
     top_level_notification_key = list(parsed_notification.keys())[0]
     if (top_level_notification_key=='sms_subscription_cancellation_notification'):
       return {

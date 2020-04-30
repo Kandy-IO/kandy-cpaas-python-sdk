@@ -1,11 +1,8 @@
 from cpaassdk.utils import (
-  compose_response,
-  parse_response,
-  build_error_response,
-  id_from,
-  is_test_response,
-  response_converter,
-  check_if_error_response)
+  outer_dict_value,
+  process_response,
+  id_from
+)
 from cpaassdk.resources.notification_channel import NotificationChannel
 
 class Conversation:
@@ -48,25 +45,21 @@ class Conversation:
           }
         }
       }
+
       url = '{}/outbound/{}/requests'.format(self.base_url, params.get('sender_address'))
 
       response = self.api.send_request(url, options, 'post')
 
-      # check if response is test response.
-      if (is_test_response(response)):
-        return response.json()
-      # check if error_response.
-      elif (check_if_error_response(response)):
-        return build_error_response(response)
+      def custom_response(res):
+        obj = res['outbound_sms_message_request']
 
-      # build custom_response.
-      response = response.json()
-      custom_response = {
-        'message': response['outboundSMSMessageRequest']['outboundSMSTextMessage']['message'],
-        'sender_address': response['outboundSMSMessageRequest']['senderAddress'],
-        'delivery_info': response['outboundSMSMessageRequest']['deliveryInfoList']['deliveryInfo']
-      }
-      return custom_response
+        return {
+          'message': obj['outbound_sms_text_message']['message'],
+          'sender_address': obj['sender_address'],
+          'delivery_info': obj['delivery_info_list']['delivery_info']
+        }
+
+      return process_response(response, callback=custom_response)
 
   def get_messages(self, params):
     """
@@ -99,7 +92,9 @@ class Conversation:
       options = {
         'query': params.get('query')
       }
-      url = '{}/remoteAddresses'
+
+      url = '{}/remoteAddresses'.format(self.base_url)
+
       if (remote_address):
         url = '{}/{}'.format(url, remote_address)
       if (local_address):
@@ -107,15 +102,14 @@ class Conversation:
 
       response = self.api.send_request(url, options)
 
-      # check if response is test response.
-      if (is_test_response(response)):
-        return response.json()
-      # check if error_response.
-      elif (check_if_error_response(response)):
-        return build_error_response(response)
+      def custom_response(res):
+        def remove_resource_url(item):
+          item.pop('resourceurl')
+          return item
 
-      # if not custom response remove the top level key and return
-      return parse_response(response)
+        return list(map(remove_resource_url, res['sms_thread_list']['sms_thread']))
+
+      return process_response(response, callback=custom_response)
 
   def get_status(self, params):
     """
@@ -134,15 +128,7 @@ class Conversation:
       url = '{}/remoteAddresses/{}/localAddresses/{}/messages/{}/status'.format(self.base_url, params.get('remote_address'), params.get('local_address'), params.get('message_id'))
       response = self.api.send_request(url, {})
 
-      # check if response is test response.
-      if (is_test_response(response)):
-        return response.json()
-      # check if error_response.
-      elif (check_if_error_response(response)):
-        return build_error_response(response)
-
-      # if not custom response remove the top level key and return
-      return parse_response(response)
+      return process_response(response, callback=outer_dict_value)
 
   def get_messages_in_thread(self, params):
     """
@@ -170,15 +156,14 @@ class Conversation:
 
       response = self.api.send_request(url, options)
 
-      # check if response is test response.
-      if (is_test_response(response)):
-        return response.json()
-      # check if error_response.
-      elif (check_if_error_response(response)):
-        return build_error_response(response)
+      def custom_response(res):
+        def remove_resource_url(item):
+          item.pop('resourceurl')
+          return item
 
-      # if not custom response remove the top level key and return
-      return parse_response(response)
+        return list(map(remove_resource_url, res['sms_message_list']['sms_message']))
+
+      return process_response(response, callback=custom_response)
 
   def delete_message(self, params):
     """
@@ -193,23 +178,15 @@ class Conversation:
 
     """
     message_type = params.get('type')
-    url = ''
     if (message_type == self.types['SMS']):
       url = '{}/remoteAddresses/{}/localAddresses/{}'.format(self.base_url, params.get('remote_address'), params.get('local_address'))
+
       if params.get('message_id'):
         url = '{}/messages/{}'.format(url, params.get('message_id'))
 
       response = self.api.send_request(url, {}, 'delete')
 
-      # check if response is test response.
-      if (is_test_response(response)):
-        return response.json()
-      # check if error_response.
-      elif (check_if_error_response(response)):
-        return build_error_response(response)
-
-      # if not custom response remove the top level key and return
-      return parse_response(response)
+      return process_response(response, callback=outer_dict_value)
 
   def get_subscriptions(self, params):
     """
@@ -228,23 +205,20 @@ class Conversation:
 
       response = self.api.send_request(url, {})
 
-      if (is_test_response(response)):
-        return response.json()
-      # check if error_response.
-      elif (check_if_error_response(response)):
-        return build_error_response(response)
+      def custom_response(res):
+        def pluck(item):
+          return {
+            'channel_id': item['callback_reference']['notifyurl'],
+            'destination_address': item['destination_address'],
+            'subscription_id': id_from(item['resourceurl'])
+          }
 
-      # build custom_response.
-      response = response.json()
-      custom_response = []
-      if (("subscriptionList" in response) and ("subscription" in response["subscriptionList"])):
-        for subscription in response["subscriptionList"]["subscription"]:
-          custom_response.append({
-            'notify_url': subscription['callbackReference']['notifyURL'],
-            'destination_address': subscription['destinationAddress'],
-            'subscription_id': id_from(subscription['resourceURL'])
-          })
-        return custom_response
+        if ('subscription_list' in res) and ('subscription' in res['subscription_list']):
+          return list(map(pluck, res['subscription_list']['subscription']))
+        else:
+          res
+
+      return process_response(response, callback=custom_response)
 
   def get_subscription(self, params):
     """
@@ -264,21 +238,19 @@ class Conversation:
 
       response = self.api.send_request(url, {})
 
-      if (is_test_response(response)):
-        return response.json()
-      # check if error_response.
-      elif (check_if_error_response(response)):
-        return build_error_response(response)
+      def custom_response(res):
+        if 'subscription' in response:
+          obj = response['subscription']
 
-      # build custom_response.
-      response = response.json()
-      if ("subscription" in response):
-        custom_response =  {
-          'notify_url': response['subscription']['callbackReference']['notifyURL'],
-          'destination_address': response['subscription']['destinationAddress'],
-          'subscription_id': id_from(response['subscription']['resourceURL'])
-        }
-        return custom_response
+          return {
+            'notify_url': obj['callback_reference']['notifyurl'],
+            'destination_address': obj['destination_address'],
+            'subscription_id': id_from(obj['resourceurl'])
+          }
+        else:
+          return {}
+
+      return process_response(response, callback=custom_response)
 
   def subscribe(self, params):
     """
@@ -294,8 +266,8 @@ class Conversation:
     message_type = params.get('type')
 
     if (message_type == self.types['SMS']):
-      # create a notifyURL with webhookURL
       channel = NotificationChannel(self.api).create_channel(params)
+
       options = {
         'body': {
           'subscription': {
@@ -311,20 +283,14 @@ class Conversation:
 
       response = self.api.send_request(url, options, 'post')
 
-      if (is_test_response(response)):
-        return response.json()
-      # check if error_response.
-      elif (check_if_error_response(response)):
-        return build_error_response(response)
+      def custom_response(res):
+        return {
+          'webhook_url': params['webhook_url'],
+          'destination_address': res['subscription']['destination_address'],
+          'subscription_id': id_from(res['subscription']['resourceurl'])
+        }
 
-      # build custom_response.
-      response = response.json()
-      custom_response =  {
-        'webhook_url': params.get('webhook_url'),
-        'destination_address': response['subscription']['destinationAddress'],
-        'subscription_id': id_from(response['subscription']['resourceURL'])
-      }
-      return custom_response
+      return process_response(response, callback=custom_response)
 
   def unsubscribe(self, params):
     """
@@ -342,17 +308,11 @@ class Conversation:
 
       response = self.api.send_request(url, {}, 'delete')
 
-      if (is_test_response(response)):
-        return response.json()
-      # check if error_response.
-      elif (check_if_error_response(response)):
-        return build_error_response(response)
+      def custom_response(res):
+        return {
+          'subscription_id': params['subscription_id'],
+          'success': True,
+          'message': 'Unsubscribed from {} conversation notification'.format(params['type'])
+        }
 
-      # build custom_response.
-      response = response.json()
-      custom_response = {
-        'subscription_id': params.get('subscription_id'),
-        'success': True,
-        'message': 'Unsubscribed from {} conversation notification'.format(params['type'])
-      }
-      return custom_response
+      return process_response(response, callback=custom_response)
