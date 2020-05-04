@@ -12,7 +12,8 @@ def api():
 
   config = Config({
     'client_id': 'test-client-id',
-    'client_secret': 'test-client-secret'
+    'client_secret': 'test-client-secret',
+    'base_url': 'https://oauth-cpaas.att.com'
   })
 
   return Api(config)

@@ -3,7 +3,7 @@ import jwt
 import requests
 
 from datetime import datetime
-from cpaassdk.utils import remove_empty_from_dict
+from cpaassdk.utils import remove_empty_from_dict, process_response
 from .__version__ import __version__
 
 
@@ -70,16 +70,29 @@ class Api:
   def tokens(self):
     options = {
       'body': {
-        'grant_type': 'client_credentials',
         'client_id': self.config.client_id,
-        'client_secret': self.config.client_secret,
         'scope': 'openid'
       },
       'headers': {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }
-    return self.send_request('/cpaas/auth/v1/token', options, 'post', False).json()
+
+    if self.config.client_secret:
+      options.get('body').update({
+        'grant_type': 'client_credentials',
+        'client_secret': self.config.client_secret
+      })
+    else:
+      options.get('body').update({
+        'grant_type': 'password',
+        'username': self.config.email,
+        'password': self.config.password
+      })
+
+    response = self.send_request('/cpaas/auth/v1/token', options, 'post', False)
+
+    return process_response(response)
 
   def set_tokens(self, tokens = {}):
     if tokens is None or type(tokens) != dict or tokens.get('access_token') == None:

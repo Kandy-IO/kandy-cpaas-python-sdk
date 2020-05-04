@@ -1,4 +1,5 @@
 from datetime import datetime
+from urllib.parse import parse_qs
 import json
 import jwt
 import responses
@@ -14,7 +15,7 @@ def mock(url, verb, body = None):
       resp_body = {
         '__for_test__': {
           'url': request.url,
-          'body': json.loads(request.body) if request.headers['Content-Type'] == 'application/x-www-form-urlencoded' else request.body,
+          'body': parse_qs(request.body) if request.headers['Content-Type'] == 'application/x-www-form-urlencoded' else request.body,
           'headers': dict(request.headers)
         }
       }

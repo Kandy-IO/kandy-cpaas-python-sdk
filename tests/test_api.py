@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 
 from tests.mocker import mock, mock_token
 from tests.util import decallmethods, deep_equal
+from cpaassdk.api import Api
+from cpaassdk.config import Config
 
 @decallmethods(responses.activate)
 class TestApi:
@@ -96,12 +98,54 @@ class TestApi:
     assert token != None
     assert token == api.access_token
 
-  def test_tokens(self, api):
-    mock_token()
-    tokens = api.tokens()
+  def test_tokens_with_project_credentials(self):
+    base_url = 'https://oauth-cpaas.att.com'
+    path = '/cpaas/auth/v1/token'
+    client_id = 'test-client-id'
+    client_secret = 'test-client-secret'
 
-    assert tokens.get('access_token') != None
-    assert tokens.get('id_token') != None
+    mock(path, 'POST' )
+
+    config = Config({
+      'client_id': client_id,
+      'client_secret': client_secret,
+      'base_url': base_url
+    })
+
+    api = Api(config)
+    response = api.tokens()
+
+    assert response['__for_test__']['url'] == base_url + path
+    assert response['__for_test__']['body']['client_id'][0] == client_id
+    assert response['__for_test__']['body']['client_secret'][0] == client_secret
+    assert response['__for_test__']['body']['grant_type'][0] == 'client_credentials'
+    assert response['__for_test__']['body']['scope'][0] == 'openid'
+
+  def test_tokens_with_user_credentials(self):
+    base_url = 'https://oauth-cpaas.att.com'
+    path = '/cpaas/auth/v1/token'
+    client_id = 'test-client-id'
+    client_secret = 'test-client-secret'
+    email = 'test@user.com'
+    password = 'test-password'
+
+    mock(path, 'POST' )
+    config = Config({
+      'client_id': 'test-client-id',
+      'email': email,
+      'password': password,
+      'base_url': base_url
+    })
+
+    api = Api(config)
+    response = api.tokens()
+
+    assert response['__for_test__']['url'] == base_url + path
+    assert response['__for_test__']['body']['client_id'][0] == client_id
+    assert response['__for_test__']['body']['username'][0] == email
+    assert response['__for_test__']['body']['password'][0] == password
+    assert response['__for_test__']['body']['grant_type'][0] == 'password'
+    assert response['__for_test__']['body']['scope'][0] == 'openid'
 
   def test_set_token(self, api):
     tokens = {
