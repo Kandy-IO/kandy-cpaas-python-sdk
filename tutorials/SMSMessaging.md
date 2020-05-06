@@ -15,7 +15,7 @@ response = client.conversation.create_message({
 Before moving to how the response body looks, let's walk through the highlights on the SMS request:
 
 + `sender_address` indicates which DID number that user desires to send the SMS from. It is expected to be an E.164 formatted number.
-    + If `sender_address` field contains `default` keyword, $KANDY$ discovers the default assigned SMS DID number for that user and utilizes it as the sender address.
+    + If `sender_address` field contains `default` keyword, $KANDY$ discovers the default assigned SMS DID number for that project or user and utilizes it as the sender address.
 + `destination_address` can either be an array of phone numbers or a single phone number string within the params containing the destinations that corresponding SMS message will be sent. For v1, only one destination is supported on $KANDY$.
 + Address value needs to contain a phone number, ideally in E.164 format. Some valid formats are:
   - +16131234567
@@ -24,7 +24,7 @@ Before moving to how the response body looks, let's walk through the highlights 
   - sip:6131234567@domain
 + `message` field contains the text message in `UTF-8` encoded format.
 
-> The number provided in `sender_address` field should be purchased by the account and assigned to the project, otherwise $KANDY$ replies back with a Forbidden error.
+> The number provided in `sender_address` field should be purchased by the account and assigned to the project or user, otherwise $KANDY$ replies back with a Forbidden error.
 
 Now, let's check the successful response:
 
@@ -60,7 +60,7 @@ response = client.conversation.subscribe({
 })
 ```
 <!-- test request/response and modify the params accordingly -->
-+ `destination_address` is an optional parameter to indicate which SMS DID number has been desired to receive SMS messages. Corresponding number should be one of the assigned/purchased numbers of the project, otherwise $KANDY$ replies back with Forbidden error. Also not providing this parameter triggers $KANDY$ to use the default assigned DID number against this user, in which case the response message for the subscription contains the `destination_address` field. It is highly recommended to provide `destination_address` parameter.
++ `destination_address` is an optional parameter to indicate which SMS DID number has been desired to receive SMS messages. Corresponding number should be one of the assigned/purchased numbers of the project or user, otherwise $KANDY$ replies back with Forbidden error. Also not providing this parameter triggers $KANDY$ to use the default assigned DID number against this project or user, in which case the response message for the subscription contains the `destination_address` field. It is highly recommended to provide `destination_address` parameter.
 + `webhook_url` is a webhook endpoint that is present in your application server which is accessible from the public web. The sms notifications would be delivered to this webhook endpoint and the received notification can be consumed by using the `notification.parse` helper method. The usage of `notification.parse` is explained in Step 2.
 
 A successful subscription would return:
@@ -72,7 +72,7 @@ A successful subscription would return:
 ```
 
 > + For every number required to receive incoming SMS, there should be an individual subscription.
-> + When a number has been unassigned from a project, all corresponding inbound SMS subscriptions are cancelled and `sms_subscription_cancellation_notification` notification is sent.
+> + When a number has been unassigned from a project or user, all corresponding inbound SMS subscriptions are cancelled and `sms_subscription_cancellation_notification` notification is sent.
 
 Now, you are ready to receive inbound SMS messages via the webhook endpoint, for example - 'https://myapp.com/inbound-sms/webhook'. For more information about webhook and subscription, you can refer the [SMS starter app](https://github.com/Kandy-IO/kandy-cpaas-python-sdk/tree/v1.1.0/examples/sms).
 

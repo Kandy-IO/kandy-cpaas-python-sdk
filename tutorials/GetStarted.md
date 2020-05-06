@@ -25,10 +25,16 @@ After you've created your client instance, you can begin playing around with it 
 ## Configuration
 Before starting, you need to learn following information from your CPaaS account, specifically from Developer Portal.
 
-Log into your Developer Portal account and the configuration information required to be authenticated should be under:
+If you want to authenticate using CPaaS account's credentials, the configuration information required should be under:
+
++ `Home` -> `Personal Profile` (top right corner) -> `Details`
+> + `Email` should be mapped to `email`
+> + Your account password should be mapped to `password`
+> + `Account client ID` should be mapped to `client_id`
+
+Alternatively if you want to use your project's credentials, the configuration information required should be under:
 
 + `Projects` -> `{your project}` -> `Project info`/`Project secret`
-
 > + `Private Project key` should be mapped to `client_id`
 > + `Private Project secret` should be mapped to `client_secret`
 
@@ -41,6 +47,15 @@ from cpasssdk import Client
 client = Client({
   'client_id': '<private project key>',
   'client_secret': '<private project secret>',
+  'base_url': 'https://$KANDYFQDN$'
+})
+
+# or
+
+client = Client({
+  'client_id': '<account client ID>',
+  'email': '<account email>',
+  'password': '<account password>',
   'base_url': 'https://$KANDYFQDN$'
 })
 ```

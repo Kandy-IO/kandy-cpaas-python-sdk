@@ -7,11 +7,11 @@
     <title>createClient &#8212; cpaassdk 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="createClient" href="modules/client.html" />
@@ -43,15 +43,26 @@
   <span class="s1">&#39;client_secret&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;private project secret&gt;&#39;</span><span class="p">,</span>
   <span class="s1">&#39;base_url&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;base url&gt;&#39;</span>
 <span class="p">})</span>
+
+<span class="c1"># or</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">({</span>
+  <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;account client ID&gt;&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;account email&gt;&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;account password&gt;&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;base_url&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;base url&gt;&#39;</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Single parameter to hold all options</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'client_id'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Private project key.</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'client_secret'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Private project secret.</p></li>
-<li><p><strong>params</strong><strong>[</strong><strong>'base_url'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – JSON url of the server to be used.</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'client_id'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Private project key / Account client ID. If Private project key is used then client_secret is mandatory. If account client ID is used then email and password are mandatory.</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'client_secret'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Private project secret.</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'email'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Account login email.</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'password'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – Account login password.</p></li>
+<li><p><strong>params</strong><strong>[</strong><strong>'base_url'</strong><strong>]</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – url of the server to be used.</p></li>
 </ul>
 </dd>
 </dl>
@@ -110,7 +121,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -127,7 +138,7 @@
       &copy;2019, cpaassdk.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
