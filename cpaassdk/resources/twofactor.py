@@ -1,4 +1,5 @@
 from cpaassdk.utils import (
+  convert_to_dict,
   id_from,
   is_test_response,
   process_response
@@ -84,7 +85,7 @@ class Twofactor:
 
     response = self.api.send_request(url, options, 'put')
 
-    if (is_test_response(response.json())):
+    if (is_test_response(convert_to_dict(response))):
       return response.json()
 
     if (response.status_code == 204):

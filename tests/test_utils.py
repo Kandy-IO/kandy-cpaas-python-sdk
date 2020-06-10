@@ -1,28 +1,33 @@
+import responses
+import requests
 from unittest.mock import Mock
 
 from cpaassdk.utils import (
   build_error_response,
+  convert_to_dict,
+  id_from,
   outer_dict_value,
-  remove_empty_from_dict,
   process_response,
-  id_from
+  remove_empty_from_dict
 )
 from tests.util import deep_equal
 
-class Response:
-  def __init__(self, status_code = 200, type = 'test'):
-    self.status_code = status_code
-    self.type = type
+class ResponseMocker:
+  def __init__(self):
+    self.base_url = 'https://random-base-url.com'
+    self.test_url = self.base_url + '/test'
 
-  def json(self):
-    if self.type == 'test':
-      return {
+  def mock_request(self, req_type = 'test', status_code = 200):
+    req_body = None
+
+    if req_type == 'test':
+      req_body = {
         '__for_test__': {
           'KeyOne': 'ValueOne'
         }
       }
-    elif self.type == 'error':
-      return {
+    elif req_type == 'error':
+      req_body =  {
         'requestError': {
           'serviceException': {
             'messageId': 'test-exception-id',
@@ -34,10 +39,15 @@ class Response:
           }
         }
       }
-    else:
-      return {
+    elif req_type == 'success':
+      req_body =  {
         'resourceURL': 'some/random/test/url/test-code-id'
       }
+
+    responses.add(responses.GET, self.test_url, json=req_body, status=status_code)
+
+  def send_mock_request(self):
+    return requests.get(self.test_url)
 
 class TestUtil:
   def test_remove_empty_from_dict(self):
@@ -112,6 +122,19 @@ class TestUtil:
 
     assert deep_equal(output, expected_output)
 
+  def test_build_error_response_with_empty_dict(self):
+    input = {}
+
+    expected_output = {
+      'name': 'request_error',
+      'exception_id': 'unknown',
+      'message': '<no response>'
+    }
+
+    output = build_error_response(input)
+
+    assert deep_equal(output, expected_output)
+
   def test_outer_dict_value(self):
     input = {
       'parent': {
@@ -144,9 +167,12 @@ class TestUtil:
 
     assert expected_output == output
 
+  @responses.activate
   def test_process_response_with_test_response(self):
-    input = Response()
-
+    response_mocker = ResponseMocker()
+    response_mocker.mock_request()
+    input = response_mocker.send_mock_request()
+    print(input)
     expected_output = {
       '__for_test__': {
         'key_one': 'ValueOne'
@@ -154,11 +180,14 @@ class TestUtil:
     }
 
     output = process_response(input)
-
+    print(output)
     assert expected_output == output
 
+  @responses.activate
   def test_process_response_with_error_response(self):
-    input = Response(status_code = 401, type = 'error')
+    response_mocker = ResponseMocker()
+    response_mocker.mock_request(status_code = 401, req_type = 'error')
+    input = response_mocker.send_mock_request()
 
     expected_output = {
       'name': 'service_exception',
@@ -167,11 +196,13 @@ class TestUtil:
     }
 
     output = process_response(input)
-
     assert expected_output == output
 
+  @responses.activate
   def test_process_response_with_normal_response_without_callback(self):
-    input = Response(type = 'success')
+    response_mocker = ResponseMocker()
+    response_mocker.mock_request(req_type = 'success')
+    input = response_mocker.send_mock_request()
 
     expected_output = {
       'resourceurl': 'some/random/test/url/test-code-id'
@@ -181,8 +212,11 @@ class TestUtil:
 
     assert expected_output == output
 
+  @responses.activate
   def test_process_response_with_normal_response_with_callback(self):
-    input = Response(type = 'success')
+    response_mocker = ResponseMocker()
+    response_mocker.mock_request(req_type = 'success')
+    input = response_mocker.send_mock_request()
 
     callback_input = {
       'resourceurl': 'some/random/test/url/test-code-id'
@@ -193,3 +227,62 @@ class TestUtil:
     output = process_response(input, callback=func)
 
     func.assert_called_with(callback_input)
+
+  @responses.activate
+  def test_process_response_with_empty_response_with_callback(self):
+    response_mocker = ResponseMocker()
+    response_mocker.mock_request(req_type = 'empty')
+    input = response_mocker.send_mock_request()
+
+    callback_input = {}
+
+    func = Mock()
+
+    output = process_response(input, callback=func)
+
+    func.assert_called_with(callback_input)
+
+  @responses.activate
+  def test_process_response_with_empty_response_without_callback(self):
+    response_mocker = ResponseMocker()
+    response_mocker.mock_request(req_type = 'empty')
+    input = response_mocker.send_mock_request()
+
+    callback_input = {}
+    expected_output = {}
+
+    func = Mock()
+
+    output = process_response(input)
+
+    func.assert_not_called()
+    assert output == {}
+
+  @responses.activate
+  def test_convert_to_dict_with_valid_input(self):
+    response_mocker = ResponseMocker()
+    response_mocker.mock_request(req_type = 'success')
+    input = response_mocker.send_mock_request()
+
+    expected_output = {
+      'resourceurl': 'some/random/test/url/test-code-id'
+    }
+    output = convert_to_dict(input)
+    assert expected_output == output
+
+  @responses.activate
+  def test_convert_to_dict_with_empty_input(self):
+    response_mocker = ResponseMocker()
+    response_mocker.mock_request(req_type = 'empty')
+    input = response_mocker.send_mock_request()
+
+    expected_output = {}
+
+    output = convert_to_dict(input)
+    assert expected_output == output
+
+  def test_convert_to_dict_with_invalid_input(self):
+    expected_output = {}
+
+    output = convert_to_dict(None)
+    assert expected_output == output

@@ -32,7 +32,7 @@ def build_error_response(res):
     }
   }
   """
-  if res:
+  if res != {} or res != None:
     error_obj = find_message_id_containing_obj(res, 'message_id')
     if error_obj:
       return {
@@ -46,12 +46,18 @@ def build_error_response(res):
         'exception_id': res['error'],
         'message': res['error_description']
       }
-    else:
+    elif 'message' in res:
       return {
         'name': 'request_error',
         'exception_id': 'unknown',
         'message': res['message']
       }
+
+  return {
+    'name': 'request_error',
+    'exception_id': 'unknown',
+    'message': '<no response>'
+  }
 
 def find_message_id_containing_obj(obj, key, parent_key=''):
   if key in obj:
@@ -69,8 +75,13 @@ def outer_dict_value(res):
   """
   return list(res.values())[0]
 
+def convert_to_dict(response):
+  is_response_empty = response == None or response.text == ''
+
+  return {} if is_response_empty else humps.decamelize(response.json())
+
 def process_response(res, callback = None):
-  response = humps.decamelize(res.json())
+  response = convert_to_dict(res)
 
   if is_test_response(response):
     return response

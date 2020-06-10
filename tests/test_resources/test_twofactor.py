@@ -50,15 +50,23 @@ class TestTwofactor:
 
   def test_verify_code(self, api):
     client = Twofactor(api)
+    test_verification_code = 'test-verification-code'
     params = {
       'code_id': 'test-code-id',
-      'verification_code': 'test-verification-code'
+      'verification_code': test_verification_code
+    }
+
+    expected_body = {
+      'code': {
+        'verify': test_verification_code
+      }
     }
 
     url = '{}/codes/{}/verify'.format(self.base_url(api), params.get('code_id'))
     mock(url, 'PUT')
     response = client.verify_code(params)
     assert response['__for_test__']['url'] == api.config.base_url + url
+    assert deep_equal(response['__for_test__']['body'], expected_body)
 
   def test_resend_code(self, api):
     client = Twofactor(api)
