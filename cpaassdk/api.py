@@ -104,8 +104,8 @@ class Api:
     else:
       self.access_token = tokens.get('access_token')
       self.id_token = tokens.get('id_token')
-      self.access_token_parsed = jwt.decode(self.access_token, verify=False)
-      self.id_token_parsed = jwt.decode(self.id_token, verify=False)
+      self.access_token_parsed = jwt.decode(self.access_token, options={'verify_signature': False})
+      self.id_token_parsed = jwt.decode(self.id_token, options={'verify_signature': False})
       self.user_id = self.id_token_parsed.get('preferred_username')
 
   def token_expired(self):
