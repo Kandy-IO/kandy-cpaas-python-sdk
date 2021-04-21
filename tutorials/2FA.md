@@ -108,7 +108,7 @@ The `code` can be:
 + Deleted explicitly if desired (deletion operation does not block the previously started send operation)
 
 ## Example
-To learn more, check the [2FA starter app](https://github.com/Kandy-IO/kandy-cpaas-python-sdk/tree/v1.2.2/examples/2fa).
+To learn more, check the [2FA starter app](https://github.com/Kandy-IO/kandy-cpaas-python-sdk/tree/v1.2.3/examples/2fa).
 
 ## References
 For all two factor authentication related method details, refer to [Two Factor Authentication](/developer/references/python/1.2.0#twofactor-send-code).
